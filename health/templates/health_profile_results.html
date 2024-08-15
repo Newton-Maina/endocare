@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Profile Results</title>
+</head>
+<body>
+    <h1>Health Profile Results</h1>
+
+    <h2>Diet Plan:</h2>
+    {% if diet_plan.error %}
+        <p><strong>Error:</strong> {{ diet_plan.error }}</p>
+    {% else %}
+        <ul>
+            {% for meal in diet_plan.meals %}
+                <li>
+                    <h3>{{ meal.name }}</h3>
+                    <p><strong>Calories:</strong> {{ meal.calories }}</p>
+                    <p><strong>Ingredients:</strong></p>
+                    <ul>
+                        {% for ingredient in meal.ingredients %}
+                            <li>{{ ingredient }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2>Exercise Recommendations:</h2>
+    {% if exercise_recommendations.error %}
+        <p><strong>Error:</strong> {{ exercise_recommendations.error }}</p>
+    {% else %}
+        <pre>{{ exercise_recommendations | safe}}</pre>
+    {% endif %}
+
+    <a href="{% url 'health_profile' %}">Back</a>
+</body>
+</html>
+
